@@ -1,0 +1,10 @@
+name: EuskalPVP
+main: es.elzoo.euskal.EuskalPVP
+author: Chistian95
+website: https://elzoo.es
+version: 1.0.0
+api-version: 1.17
+depend: [WorldGuard]
+commands:
+  luchar:
+    description: Luchar

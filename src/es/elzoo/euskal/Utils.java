@@ -29,4 +29,12 @@ public class Utils {
 		player.teleportAsync(Bukkit.getWorlds().get(0).getSpawnLocation());
 		player.getInventory().clear();
 	}
+	
+	public static void limpiar(Player player) {
+		player.getInventory().clear();
+		player.setHealth(20);
+		player.setFoodLevel(20);
+		
+		tpSpawn(player);
+	}
 }

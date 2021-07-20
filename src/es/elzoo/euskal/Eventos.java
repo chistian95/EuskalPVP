@@ -16,7 +16,7 @@ public class Eventos implements Listener {
 	public void onPlayerJoin(PlayerJoinEvent event) {
 		event.joinMessage(null);
 		
-		Utils.tpSpawn(event.getPlayer());
+		Utils.limpiar(event.getPlayer());
 	}
 	
 	@EventHandler
@@ -37,7 +37,7 @@ public class Eventos implements Listener {
 			return;
 		}
 		
-		Player victima = (Player) event.getEntity();		
+		Player victima = (Player) event.getEntity();
 		Player atacante = null;
 		
 		if(event.getDamager().getType() == EntityType.PLAYER) {
@@ -50,7 +50,7 @@ public class Eventos implements Listener {
 		}
 		if(atacante == null) {
 			return;
-		}		
+		}
  	}
 	
 	@EventHandler

@@ -6,7 +6,10 @@ import java.util.Optional;
 
 import org.bukkit.GameMode;
 import org.bukkit.Location;
+import org.bukkit.Material;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 
 import com.sk89q.worldedit.bukkit.BukkitWorld;
 import com.sk89q.worldedit.math.BlockVector3;
@@ -18,6 +21,9 @@ import com.sk89q.worldguard.protection.regions.RegionContainer;
 public class Arena {
 	private static Map<String, Arena> arenas = new HashMap<String, Arena>();
 	
+	private static ItemStack casco, pechera, pantalones, botas;
+	private static ItemStack[] kit;
+	
 	private Location pos1, pos2;
 	private String nombre;
 	
@@ -27,6 +33,10 @@ public class Arena {
 		this.pos2 = pos2;
 		
 		arenas.put(nombre, this);
+		
+		if(casco == null) {
+			crearKit();
+		}
 	}
 	
 	public void luchar(Player p1, Player p2) {
@@ -55,7 +65,21 @@ public class Arena {
 	}
 	
 	private static void preparar(Player player, Location pos) {
-		//TODO Dar kit, curar y hacer TP
+		player.setGameMode(GameMode.SURVIVAL);
+		player.getInventory().clear();
+		player.setHealth(20);
+		player.setFoodLevel(20);
+		
+		player.getInventory().setHelmet(casco.clone());
+		player.getInventory().setChestplate(pechera.clone());
+		player.getInventory().setLeggings(pantalones.clone());
+		player.getInventory().setBoots(botas.clone());
+		
+		for(ItemStack item : kit) {
+			player.getInventory().addItem(item.clone());
+		}
+		
+		player.teleportAsync(pos);
 	}
 	
 	public static Optional<Arena> getArena(String nombre) {
@@ -88,6 +112,38 @@ public class Arena {
 	
 	public static Optional<Arena> getPrimeraArena() {
 		return arenas.values().stream().findFirst();
+	}
+	
+	public static void crearKit() {		
+		casco = armadura(Material.NETHERITE_HELMET);
+		pechera = armadura(Material.NETHERITE_CHESTPLATE);
+		pantalones = armadura(Material.NETHERITE_LEGGINGS);
+		botas = armadura(Material.NETHERITE_BOOTS);
+		
+		kit = new ItemStack[] {
+			espada(Material.NETHERITE_SWORD),
+			new ItemStack(Material.GOLDEN_APPLE, 3),
+			new ItemStack(Material.GOLDEN_CARROT, 24),
+			new ItemStack(Material.ENDER_PEARL, 6)
+		};
+	}
+	
+	public static ItemStack espada(Material mat) {
+		ItemStack item = new ItemStack(mat);
+		
+		item.addEnchantment(Enchantment.DAMAGE_ALL, 5);
+		item.addEnchantment(Enchantment.VANISHING_CURSE, 1);
+		
+		return item;
+	}
+	
+	public static ItemStack armadura(Material mat) {
+		ItemStack item = new ItemStack(mat);
+		
+		item.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 4);
+		item.addEnchantment(Enchantment.VANISHING_CURSE, 1);
+		
+		return item;
 	}
 	
 	public String getNombre() {

@@ -11,5 +11,7 @@
 			<attribute name="javadoc_location" value="jar:file:/D:/Dev/Librerias/17/paper-api-1.17-R0.1-20210704.163727-71-javadoc.jar!/"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="D:/Dev/Librerias/17/worldguard-bukkit-7.0.6-SNAPSHOT-dist.jar"/>
+	<classpathentry kind="lib" path="D:/Dev/Librerias/17/worldedit-bukkit-7.3.0-SNAPSHOT-dist.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

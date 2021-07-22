@@ -59,6 +59,13 @@ public class Arena {
 		configArena.getConfigurationSection("pos1").set("pitch", (double) pos1.getPitch());
 		configArena.getConfigurationSection("pos1").set("yaw", (double) pos1.getYaw());
 		
+		configArena.getConfigurationSection("pos2").set("mundo", pos2.getWorld().getName());
+		configArena.getConfigurationSection("pos2").set("x", pos2.getX());
+		configArena.getConfigurationSection("pos2").set("y", pos2.getY());
+		configArena.getConfigurationSection("pos2").set("z", pos2.getZ());
+		configArena.getConfigurationSection("pos2").set("pitch", (double) pos2.getPitch());
+		configArena.getConfigurationSection("pos2").set("yaw", (double) pos2.getYaw());
+		
 		plugin.saveConfig();
 	}
 	

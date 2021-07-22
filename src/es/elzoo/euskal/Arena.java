@@ -86,6 +86,9 @@ public class Arena {
 	public void parar() {
 		RegionContainer container = WorldGuard.getInstance().getPlatform().getRegionContainer();
 		ProtectedRegion reg = container.get(new BukkitWorld(pos1.getWorld())).getRegion(nombre);
+		if(reg == null) {
+			return;
+		}
 		
 		pos1.getWorld().getPlayers().forEach(pl -> {
 			if(pl.getGameMode() != GameMode.SURVIVAL) {

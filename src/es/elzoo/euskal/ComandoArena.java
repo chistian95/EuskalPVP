@@ -10,6 +10,11 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import com.sk89q.worldedit.bukkit.BukkitWorld;
+import com.sk89q.worldguard.WorldGuard;
+import com.sk89q.worldguard.protection.regions.ProtectedRegion;
+import com.sk89q.worldguard.protection.regions.RegionContainer;
+
 public class ComandoArena implements CommandExecutor {	
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {		
 		if(!sender.hasPermission("superadmin")) {
@@ -35,6 +40,13 @@ public class ComandoArena implements CommandExecutor {
 				return true;
 			}
 			
+			RegionContainer container = WorldGuard.getInstance().getPlatform().getRegionContainer();
+			ProtectedRegion reg = container.get(new BukkitWorld(arena.get().getPos1().getWorld())).getRegion(arena.get().getNombre());
+			if(reg == null) {
+				sender.sendMessage(Utils.txt("&cDebes crear la región primero."));
+				return true;
+			}
+			
 			arena.get().parar();
 		} else if(args[0].equalsIgnoreCase("reload")) {
 			EuskalPVP euskal = (EuskalPVP) Bukkit.getPluginManager().getPlugin("EuskalPVP");
@@ -50,6 +62,8 @@ public class ComandoArena implements CommandExecutor {
 				sender.sendMessage("&cYa hay una arena con ese nombre");
 				return true;
 			}
+			
+			
 			
 			Location loc = Bukkit.getWorlds().get(0).getSpawnLocation();
 			Arena nueva = new Arena(args[1], loc, loc);

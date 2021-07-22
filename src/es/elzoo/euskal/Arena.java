@@ -4,9 +4,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
+import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -20,6 +22,7 @@ import com.sk89q.worldguard.protection.regions.RegionContainer;
 
 public class Arena {
 	public static Map<String, Arena> arenas = new HashMap<String, Arena>();
+	private static EuskalPVP plugin = (EuskalPVP) Bukkit.getPluginManager().getPlugin("EuskalPVP");
 	
 	private static ItemStack casco, pechera, pantalones, botas;
 	private static ItemStack[] kit;
@@ -37,6 +40,26 @@ public class Arena {
 		if(casco == null) {
 			crearKit();
 		}
+	}
+	
+	public void borrar() {
+		arenas.remove(nombre);		
+		plugin.getConfig().getConfigurationSection("arenas").set(nombre, null);
+		plugin.saveConfig();
+	}
+	
+	public void guardarConfig() {
+		plugin.getConfig().getConfigurationSection("arenas").createSection(nombre);
+		ConfigurationSection configArena = plugin.getConfig().getConfigurationSection("arenas").getConfigurationSection(nombre);
+		
+		configArena.getConfigurationSection("pos1").set("mundo", pos1.getWorld().getName());
+		configArena.getConfigurationSection("pos1").set("x", pos1.getX());
+		configArena.getConfigurationSection("pos1").set("y", pos1.getY());
+		configArena.getConfigurationSection("pos1").set("z", pos1.getZ());
+		configArena.getConfigurationSection("pos1").set("pitch", (double) pos1.getPitch());
+		configArena.getConfigurationSection("pos1").set("yaw", (double) pos1.getYaw());
+		
+		plugin.saveConfig();
 	}
 	
 	public void luchar(Player p1, Player p2) {
@@ -154,7 +177,15 @@ public class Arena {
 		return pos1;
 	}
 	
+	public void setPos1(Location pos) {
+		this.pos1 = pos;
+	}
+	
 	public Location getPos2() {
 		return pos2;
+	}
+	
+	public void setPos2(Location pos) {
+		this.pos2 = pos;
 	}
 }

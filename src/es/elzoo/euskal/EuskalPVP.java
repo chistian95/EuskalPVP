@@ -15,7 +15,7 @@ public class EuskalPVP extends JavaPlugin {
 		
 		getServer().getPluginManager().registerEvents(new Eventos(), this);
 		
-		getCommand("luchar").setExecutor(new ComandoLuchar());
+		getCommand("arena").setExecutor(new ComandoArena());
 		
 		cargarArenas();
 	}

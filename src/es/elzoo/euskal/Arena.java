@@ -44,27 +44,34 @@ public class Arena {
 	
 	public void borrar() {
 		arenas.remove(nombre);		
+		
 		plugin.getConfig().getConfigurationSection("arenas").set(nombre, null);
 		plugin.saveConfig();
 	}
 	
-	public void guardarConfig() {
-		plugin.getConfig().getConfigurationSection("arenas").createSection(nombre);
-		ConfigurationSection configArena = plugin.getConfig().getConfigurationSection("arenas").getConfigurationSection(nombre);
+	public void guardarConfig() {				
+		ConfigurationSection arenasRaw = plugin.getConfig().getConfigurationSection("arenas");
+		if(arenasRaw == null) {
+			arenasRaw = plugin.getConfig().createSection("arenas");
+		}
 		
-		configArena.getConfigurationSection("pos1").set("mundo", pos1.getWorld().getName());
-		configArena.getConfigurationSection("pos1").set("x", pos1.getX());
-		configArena.getConfigurationSection("pos1").set("y", pos1.getY());
-		configArena.getConfigurationSection("pos1").set("z", pos1.getZ());
-		configArena.getConfigurationSection("pos1").set("pitch", (double) pos1.getPitch());
-		configArena.getConfigurationSection("pos1").set("yaw", (double) pos1.getYaw());
+		ConfigurationSection configArena = arenasRaw.createSection(nombre);
 		
-		configArena.getConfigurationSection("pos2").set("mundo", pos2.getWorld().getName());
-		configArena.getConfigurationSection("pos2").set("x", pos2.getX());
-		configArena.getConfigurationSection("pos2").set("y", pos2.getY());
-		configArena.getConfigurationSection("pos2").set("z", pos2.getZ());
-		configArena.getConfigurationSection("pos2").set("pitch", (double) pos2.getPitch());
-		configArena.getConfigurationSection("pos2").set("yaw", (double) pos2.getYaw());
+		ConfigurationSection pos1Conf = configArena.createSection("pos1");
+		pos1Conf.set("mundo", pos1.getWorld().getName());
+		pos1Conf.set("x", pos1.getX());
+		pos1Conf.set("y", pos1.getY());
+		pos1Conf.set("z", pos1.getZ());
+		pos1Conf.set("pitch", (double) pos1.getPitch());
+		pos1Conf.set("yaw", (double) pos1.getYaw());
+		
+		ConfigurationSection pos2Conf = configArena.createSection("pos2");
+		pos2Conf.set("mundo", pos2.getWorld().getName());
+		pos2Conf.set("x", pos2.getX());
+		pos2Conf.set("y", pos2.getY());
+		pos2Conf.set("z", pos2.getZ());
+		pos2Conf.set("pitch", (double) pos2.getPitch());
+		pos2Conf.set("yaw", (double) pos2.getYaw());
 		
 		plugin.saveConfig();
 	}

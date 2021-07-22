@@ -17,6 +17,7 @@ public class ComandoLuchar implements CommandExecutor {
 		if(args.length < 1) {
 			sender.sendMessage(Utils.txt("&7/luchar <p1> <p2> [<arena>]"));
 			sender.sendMessage(Utils.txt("&7/luchar parar [<arena>]"));
+			sender.sendMessage(Utils.txt("&7/luchar reload"));
 		} else if(args[0].equalsIgnoreCase("parar")) {
 			Optional<Arena> arena = Arena.getPrimeraArena();
 			if(args.length >= 2) {
@@ -29,6 +30,9 @@ public class ComandoLuchar implements CommandExecutor {
 			}
 			
 			arena.get().parar();
+		} else if(args[0].equalsIgnoreCase("reload")) {
+			EuskalPVP euskal = (EuskalPVP) Bukkit.getPluginManager().getPlugin("EuskalPVP");
+			euskal.reloadConfig();
 		} else {
 			Player p1 = Bukkit.getPlayer(args[0]);
 			Player p2 = Bukkit.getPlayer(args[1]);

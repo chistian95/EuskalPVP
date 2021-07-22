@@ -2,6 +2,9 @@ package es.elzoo.euskal;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
+import org.bukkit.World;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 
 import net.kyori.adventure.text.Component;
@@ -36,5 +39,35 @@ public class Utils {
 		player.setFoodLevel(20);
 		
 		tpSpawn(player);
+	}
+	
+	public static Location stringToLoc(String locRaw) {
+		String[] split = locRaw.split(",");
+		
+		World mundo = Bukkit.getWorld(split[0]);
+		
+		double x = Double.parseDouble(split[1]);
+		double y = Double.parseDouble(split[2]);
+		double z = Double.parseDouble(split[3]);
+		
+		float pitch = Float.parseFloat(split[4]);
+		float yaw = Float.parseFloat(split[5]);
+		
+		return new Location(mundo, x, y, z, yaw, pitch);
+	}
+	
+	public static String LocToString(Location loc) {
+		return loc.getWorld().getName()+","+loc.getX()+","+loc.getY()+","+loc.getZ()+","+loc.getPitch()+","+loc.getYaw();
+	}
+	
+	public static Location locFromConfig(ConfigurationSection conf) {
+		World mundo = Bukkit.getWorld(conf.getString("mundo"));
+		double x = conf.getDouble("x");
+		double y = conf.getDouble("y");
+		double z = conf.getDouble("z");
+		float pitch = (float) conf.getDouble("pitch");
+		float yaw = (float) conf.getDouble("yaw"); 
+		
+		return new Location(mundo, x, y, z, yaw, pitch);
 	}
 }

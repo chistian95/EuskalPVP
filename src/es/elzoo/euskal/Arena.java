@@ -19,7 +19,7 @@ import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 import com.sk89q.worldguard.protection.regions.RegionContainer;
 
 public class Arena {
-	private static Map<String, Arena> arenas = new HashMap<String, Arena>();
+	public static Map<String, Arena> arenas = new HashMap<String, Arena>();
 	
 	private static ItemStack casco, pechera, pantalones, botas;
 	private static ItemStack[] kit;

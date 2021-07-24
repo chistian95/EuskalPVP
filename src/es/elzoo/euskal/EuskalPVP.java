@@ -3,8 +3,13 @@ package es.elzoo.euskal;
 import org.bukkit.Location;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 public class EuskalPVP extends JavaPlugin {
+	private static PotionEffect fuerza = new PotionEffect(PotionEffectType.SPEED, 160, 1, true, false, false);
+	private static PotionEffect velocidad = new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 160, 0, true, false, false);
+	
 	@Override
 	public void onEnable() {
 		getConfig().options().copyDefaults(true);
@@ -15,6 +20,13 @@ public class EuskalPVP extends JavaPlugin {
 		getCommand("arena").setExecutor(new ComandoArena());
 		
 		cargarArenas();
+		
+		getServer().getScheduler().scheduleSyncRepeatingTask(this, () -> {
+			getServer().getOnlinePlayers().forEach(pl -> {
+				pl.addPotionEffect(fuerza);
+				pl.addPotionEffect(velocidad);
+			});
+		}, 10, 10);
 	}
 	
 	@Override

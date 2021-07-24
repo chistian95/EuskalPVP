@@ -39,10 +39,10 @@ public class EuskalPVP extends JavaPlugin {
 	private void cargarArenas() {
 		ConfigurationSection arenasRaw = getConfig().getConfigurationSection("arenas");
 		if(arenasRaw != null) {
-			arenasRaw.getValues(true).forEach((arenaid, arenaRaw) -> {
+			arenasRaw.getValues(false).forEach((arenaid, arenaRaw) -> {
 				ConfigurationSection arenaConf = (ConfigurationSection) arenaRaw;
 				
-				ConfigurationSection pos1Conf = arenaConf.getConfigurationSection("pos1");
+				ConfigurationSection pos1Conf = arenaConf.getConfigurationSection("pos1");				
 				Location pos1 = Utils.locFromConfig(pos1Conf);			
 				
 				ConfigurationSection pos2Conf = arenaConf.getConfigurationSection("pos2");

@@ -164,7 +164,7 @@ public class Arena {
 			espada(Material.NETHERITE_SWORD),
 			new ItemStack(Material.GOLDEN_APPLE, 3),
 			new ItemStack(Material.GOLDEN_CARROT, 24),
-			new ItemStack(Material.ENDER_PEARL, 6)
+			/*new ItemStack(Material.ENDER_PEARL, 6)*/
 		};
 	}
 	
